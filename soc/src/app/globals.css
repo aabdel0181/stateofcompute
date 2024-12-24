@@ -30,3 +30,16 @@ body {
   background-clip: text;
   color: transparent;
 }
+/* Add these to your existing styles */
+@keyframes buttonGlow {
+  0%, 100% {
+    box-shadow: 0 0 20px rgba(255, 51, 51, 0.5);
+  }
+  50% {
+    box-shadow: 0 0 30px rgba(255, 51, 51, 0.8);
+  }
+}
+
+.button-glow {
+  animation: buttonGlow 2s infinite;
+}
