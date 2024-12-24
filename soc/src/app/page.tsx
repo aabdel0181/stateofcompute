@@ -1,5 +1,5 @@
 import { Suspense } from 'react';
-import { AnalyticsDashboard } from './components/AnalyticsDashboard';
+import { HomeView } from './components/HomeView';
 import { fetchGPUMetrics } from './lib/db';
 
 export default async function Home() {
@@ -7,7 +7,7 @@ export default async function Home() {
 
   return (
     <Suspense fallback={<div>Loading...</div>}>
-      <AnalyticsDashboard data={data} />
+      <HomeView data={data} />
     </Suspense>
   );
 }

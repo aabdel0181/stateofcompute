@@ -76,23 +76,23 @@ export const Globe: React.FC<GlobeProps> = ({ data }) => {
   }, [data]);
 
   return (
-    <div className="w-full h-full relative">
+    <div className="w-full h-full flex items-center justify-center">
       <GlobeGL
         ref={globeRef}
         globeImageUrl="https://unpkg.com/three-globe@2.37.5/example/img/earth-dark.jpg"
         pointsData={globeData}
-        pointAltitude={0.01} // Fixed small altitude instead of using "size"
+        pointAltitude={0.01}
         pointColor="color"
         pointRadius={0.5}
         atmosphereColor="#cc0000"
         atmosphereAltitude={0.15}
         backgroundColor="rgba(0,0,0,0)"
-        width={800}
-        height={800}
+        width={900}
+        height={900}
         globeRadius={300}
         enablePointerInteraction={false}
+        center={true}
       />
     </div>
   );
 };
-

@@ -1,0 +1,118 @@
+'use client';
+
+import { motion } from 'framer-motion';
+import { useState, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
+import { Globe } from './Globe';
+import { MetricCounter } from './MetricCounter';
+
+import { ParticleBackground } from './ParticleBackground';
+import type { GPUMetrics } from '@/types/metrics';
+
+interface HomeViewProps {
+  data: GPUMetrics[];
+}
+
+export const HomeView: React.FC<HomeViewProps> = ({ data }) => {
+  const router = useRouter();
+  const [showContent, setShowContent] = useState(false);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setShowContent(true);
+    }, 500);
+    return () => clearTimeout(timer);
+  }, []);
+
+  return (
+    <div className="relative min-h-screen bg-black text-white">
+      <ParticleBackground />
+      
+      {/* Hero Section */}
+      <motion.div
+        initial={{ opacity: 0, y: -20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8, delay: 0.2 }}
+        className="container mx-auto px-4 pt-20 pb-4 text-center"
+      >
+        <h1 className="text-5xl font-bold mb-2">
+          <span className="bg-clip-text text-transparent bg-gradient-to-r from-red-500 to-red-800">
+            The State of DePIN
+          </span>
+        </h1>
+        <motion.p
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.8, delay: 0.4 }}
+          className="text-lg text-gray-400 max-w-2xl mx-auto"
+        >
+          Real-time analytics of decentralized physical infrastructure networks
+        </motion.p>
+      </motion.div>
+
+      {/* Globe Container */}
+      <div className="relative flex-1" style={{ height: 'calc(100vh - 200px)' }}>
+        {/* Globe */}
+        <div className="absolute inset-0 flex items-center justify-center">
+          <Globe data={data} />
+        </div>
+        
+        {/* Metrics Overlay */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: showContent ? 1 : 0 }}
+          transition={{ duration: 0.8, delay: 0.6 }}
+          className="relative z-10 container mx-auto px-4"
+        >
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+        <MetricCounter
+              label="Total GPUs"
+              value={data.reduce((acc, curr) => acc + curr.gpuCount, 0)}
+              theme="glass"
+            />
+            <MetricCounter
+              label="Active Users"
+              value={new Set(data.map(d => d.userId)).size}
+              theme="glass"
+            />
+            <MetricCounter
+              label="Network Health"
+              value={data.reduce((acc, curr) => acc + curr.networkHealth, 0) / data.length}
+              suffix="%"
+              theme="glass"
+            />            </div>
+      
+            </motion.div>
+ {/* Action Buttons */}
+ <motion.div 
+          className="absolute bottom-16 left-0 right-0 z-20 flex justify-center gap-6"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: showContent ? 1 : 0, y: showContent ? 0 : 20 }}
+          transition={{ duration: 0.8, delay: 0.8 }}
+        >
+          <button 
+            className="px-10 py-3 text-xl font-semibold
+                       bg-[#cc0000] text-white
+                       rounded-full
+                       shadow-[0_0_15px_rgba(204,0,0,0.5)]
+                       hover:shadow-[0_0_30px_rgba(204,0,0,0.8)]
+                       transform hover:scale-105 
+                       transition-all duration-300"
+            onClick={() => router.push('/app')}
+          >
+            Enter
+          </button>
+
+          <button 
+            className="px-10 py-3 text-xl font-semibold rounded-full
+                       border-2 border-[#cc0000] text-[#cc0000]
+                       hover:bg-[#cc0000] hover:text-white
+                       transform hover:scale-105 transition-all duration-300"
+            onClick={() => router.push('/learn')}
+          >
+            Learn More
+          </button>
+        </motion.div>
+      </div>
+    </div>
+  );
