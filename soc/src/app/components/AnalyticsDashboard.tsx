@@ -1,6 +1,8 @@
 'use client';
 
 import { motion } from 'framer-motion';
+import { useRouter } from 'next/navigation';
+
 import { useState, useEffect } from 'react'; // Add useEffect here
 import { Globe } from './Globe';
 import { MetricCounter } from './MetricCounter';
@@ -13,6 +15,7 @@ interface AnalyticsDashboardProps {
 
 export const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ data }) => {
   const [showButton, setShowButton] = useState(false);
+  const router = useRouter();
 
   // Show button after a delay
   useEffect(() => {
@@ -74,6 +77,7 @@ export const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ data }) 
           >
             {/* Enter Button */}
             <button 
+                        onClick={() => router.push('/app')}
               className="px-12 py-4 text-2xl font-semibold
                          bg-[#cc0000] text-white
                          rounded-full
@@ -81,9 +85,6 @@ export const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ data }) 
                          hover:shadow-[0_0_30px_rgba(204,0,0,0.8)]
                          transform hover:scale-105 
                          transition-all duration-300"
-              onClick={() => {
-                console.log('Enter clicked');
-              }}
             >
               Enter
             </button>
@@ -94,9 +95,7 @@ export const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ data }) 
                          border-2 border-[#cc0000] text-[#cc0000]
                          hover:bg-[#cc0000] hover:text-white
                          transform hover:scale-105 transition-all duration-300"
-              onClick={() => {
-                console.log('Learn More clicked');
-              }}
+              onClick={() => router.push('/learn')}
             >
               Learn More
             </button>
