@@ -1,15 +1,23 @@
-export interface Location {
+export interface GPUMetrics {
+  id: string;
+  userId: string;
+  location: {
+    city: string;
     latitude: number;
     longitude: number;
-  }
-  
-  export interface GPUMetrics {
-    id: string;
-    userId: string;
-    gpuCount: number;
-    utilization: number;
-    location: Location;
-    price: number;
-    networkHealth: number;
-    timestamp: string;
-  }
+  };
+  gpuCount: number;
+  gpuType: string;
+  utilization: number;
+  networkHealth: number;
+  pricing: {
+    basePrice: string;
+    currentPrice: string;
+  };
+  lastSeen: string;
+  status: 'active' | 'inactive';
+  performance: {
+    throughput: number;
+    latency: number;
+  };
+}

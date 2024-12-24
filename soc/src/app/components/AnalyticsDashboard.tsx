@@ -62,48 +62,44 @@ export const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ data }) 
             />
           </div>
 
-          {/* Enter Button */}
-          <motion.div 
-            className="absolute bottom-8 left-0 right-0 z-20 flex justify-center"
+         {/* Buttons Container */}
+         <motion.div 
+            className="absolute bottom-32 left-0 right-0 z-20 flex justify-center gap-8"
             initial={{ opacity: 0, y: 20 }}
             animate={{ 
               opacity: showButton ? 1 : 0, 
               y: showButton ? 0 : 20 
             }}
-            transition={{ 
-              duration: 0.8,
-              ease: "easeOut"
-            }}
+            transition={{ duration: 0.8, ease: "easeOut" }}
           >
-<motion.button 
-  className="group relative px-8 py-3 text-xl font-semibold rounded-full 
-             overflow-hidden bg-black border-2 border-red-500
-             transform hover:scale-105 transition-all duration-300"
-  initial={{ opacity: 0, y: 20 }}
-  animate={{ 
-    opacity: showButton ? 1 : 0, 
-    y: showButton ? 0 : 20 
-  }}
-  transition={{ 
-    duration: 0.8,
-    ease: "easeOut"
-  }}
-  onClick={() => {
-    // Add your navigation logic here
-    console.log('Enter clicked');
-  }}
->
-  <span className="relative z-10 bg-gradient-to-r from-red-500 to-red-600 
-                   bg-clip-text text-transparent">
-    Enter
-  </span>
-  <motion.div 
-    className="absolute inset-0 bg-gradient-to-r from-red-600 to-red-500"
-    initial={{ x: '-100%' }}
-    whileHover={{ x: 0 }}
-    transition={{ duration: 0.3 }}
-  />
-</motion.button>
+            {/* Enter Button */}
+            <button 
+              className="px-12 py-4 text-2xl font-semibold
+                         bg-[#cc0000] text-white
+                         rounded-full
+                         shadow-[0_0_15px_rgba(204,0,0,0.5)]
+                         hover:shadow-[0_0_30px_rgba(204,0,0,0.8)]
+                         transform hover:scale-105 
+                         transition-all duration-300"
+              onClick={() => {
+                console.log('Enter clicked');
+              }}
+            >
+              Enter
+            </button>
+
+            {/* Learn More Button */}
+            <button 
+              className="px-12 py-4 text-2xl font-semibold rounded-full
+                         border-2 border-[#cc0000] text-[#cc0000]
+                         hover:bg-[#cc0000] hover:text-white
+                         transform hover:scale-105 transition-all duration-300"
+              onClick={() => {
+                console.log('Learn More clicked');
+              }}
+            >
+              Learn More
+            </button>
           </motion.div>
         </div>
       </div>
