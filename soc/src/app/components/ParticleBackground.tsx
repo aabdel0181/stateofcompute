@@ -16,8 +16,8 @@ export const ParticleBackground = () => {
         init={particlesInit}
         options={{
           fullScreen: {
-            enable: true,
-            zIndex: -1
+            enable: false,
+            zIndex: 0
           },
           background: {
             color: {
@@ -40,18 +40,18 @@ export const ParticleBackground = () => {
               direction: "none",
               enable: true,
               outModes: {
-                default: "bounce",
+                default: "out",
               },
-              random: false,
+              random: true,
               speed: 0.8,
               straight: false,
             },
             number: {
               density: {
                 enable: true,
-                area: 800,
+                area: 1000,
               },
-              value: 80,
+              value: 100,
             },
             opacity: {
               value: 0.5,
@@ -62,13 +62,40 @@ export const ParticleBackground = () => {
             size: {
               value: { min: 1, max: 3 },
             },
+            life: {
+              duration: {
+                sync: false,
+                value: 3
+              },
+              count: 0
+            },
           },
           detectRetina: true,
+          emitters: [
+            {
+              direction: "none",
+              rate: {
+                quantity: 5,
+                delay: 0.15
+              },
+              position: {
+                x: 0,
+                y: 0
+              },
+              size: {
+                width: 100,
+                height: 100
+              },
+              spawnColor: {
+                value: "#ff0000"
+              }
+            }
+          ]
         }}
         style={{
           position: 'absolute',
-          inset: 0,
-          zIndex: 0,
+          width: '100%',
+          height: '100%',
         }}
       />
     );

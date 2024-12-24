@@ -52,7 +52,8 @@ export const Globe: React.FC<GlobeProps> = ({ data }) => {
   }, [data]);
 
   return (
-    <div className="w-full h-full">
+    <div className="w-full h-full relative">
+      <div className="absolute inset-0 rounded-full bg-gradient-radial from-transparent to-black opacity-20" />
       <GlobeGL
         ref={globeRef}
         globeImageUrl="https://unpkg.com/three-globe@2.37.5/example/img/earth-dark.jpg"
@@ -63,9 +64,9 @@ export const Globe: React.FC<GlobeProps> = ({ data }) => {
         atmosphereColor="#ff3333"
         atmosphereAltitude={0.15}
         backgroundColor="rgba(0,0,0,0)"
-        width={1600}
-        height={900}
-        globeRadius={70}
+        width={800}
+        height={800}
+        globeRadius={300}
         enablePointerInteraction={false}
       />
     </div>
