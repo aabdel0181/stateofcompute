@@ -22,7 +22,7 @@ export const Globe: React.FC<GlobeProps> = ({ data }) => {
 
   useEffect(() => {
     let animationId: number;
-    const rotationSpeed = 0.001;
+    const rotationSpeed = 0.005;
 
     const animate = () => {
       if (globeRef.current) {
@@ -31,6 +31,14 @@ export const Globe: React.FC<GlobeProps> = ({ data }) => {
           globe.scene().rotation.y += rotationSpeed;
           globe.renderer().render(globe.scene(), globe.camera());
         }
+
+      // First value (phi): vertical rotation (lower numbers move up)
+      // Second value (theta): horizontal rotation (positive numbers move right)
+      globeRef.current.pointOfView({
+        lat: 30,    // Latitude (adjust to move up/down)
+        lng: -95,   // Longitude (adjust to move left/right)
+        altitude: 2.5  // Distance from globe (adjust for zoom)
+      });
       }
       animationId = requestAnimationFrame(animate);
     };
