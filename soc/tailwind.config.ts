@@ -12,6 +12,15 @@ export default {
         background: "var(--background)",
         foreground: "var(--foreground)",
       },
+      backdropBlur: {
+        sm: '4px',
+      },
+      backgroundColor: {
+        'gray-900/50': 'rgba(17, 24, 39, 0.5)',
+      },
+      borderColor: {
+        'gray-800': 'rgba(31, 41, 55, 1)',
+      },
     },
   },
   plugins: [],

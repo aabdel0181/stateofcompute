@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 :root {
-  --background: #000000; /* Changed to pure black */
+  --background: #000000;
   --foreground: #ffffff;
   --primary: #ff3333;
   --primary-dark: #cc0000;
@@ -18,28 +18,39 @@ body {
   font-family: 'Inter', sans-serif;
 }
 
+/* Add container styles */
+.container {
+  width: 100%;
+  max-width: 1280px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
 .glass-card {
   background: rgba(17, 17, 17, 0.7);
   backdrop-filter: blur(8px);
   border: 1px solid rgba(255, 51, 51, 0.1);
 }
 
-.text-gradient {
-  background: linear-gradient(to right, #cc0000, #cc0000);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-}
-/* Add these to your existing styles */
-@keyframes buttonGlow {
-  0%, 100% {
-    box-shadow: 0 0 20px rgba(255, 51, 51, 0.5);
-  }
-  50% {
-    box-shadow: 0 0 30px rgba(255, 51, 51, 0.8);
-  }
+/* Chart container styles */
+.chart-container {
+  width: 100%;
+  height: 100%;
+  min-height: 400px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.button-glow {
-  animation: buttonGlow 2s infinite;
+/* Add responsive padding for dashboard */
+.dashboard-container {
+  padding-top: 4rem;
+}
+
+@media (min-width: 768px) {
+  .dashboard-container {
+    padding-top: 5rem;
+  }
 }
