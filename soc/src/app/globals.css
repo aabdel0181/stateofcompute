@@ -19,3 +19,18 @@ body {
   background: var(--background);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+/* Add these styles */
+.isolate {
+  isolation: isolate;
+  pointer-events: none;
+}
+
+.isolate > * {
+  pointer-events: auto;
+}
+
+/* Prevent scrolling on the body when interacting with the globe */
+body.globe-active {
+  overflow: hidden;
+}
