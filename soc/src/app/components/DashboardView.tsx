@@ -36,9 +36,7 @@ export const DashboardView: React.FC<DashboardViewProps> = ({ data }) => {
           transition={{ duration: 0.6, delay: 0.2 }}
           className="mb-12 w-full"
         >
-          <div className="bg-gray-900/50 backdrop-blur-sm rounded-xl p-6 border border-gray-800">
-            <MetricsCarousel data={data} isLoading={isLoading} />
-          </div>
+          <MetricsCarousel data={data} isLoading={isLoading} />
         </motion.section>
 
         {/* Provider Leaderboard */}

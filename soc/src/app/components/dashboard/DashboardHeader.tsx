@@ -25,7 +25,8 @@ const MetricCard: React.FC<MetricCardProps> = ({ title, value, change, icon, isL
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5, delay }}
-        className="bg-gray-900/50 backdrop-blur-sm rounded-xl p-6 border border-gray-800 w-full"
+        whileHover={{ scale: 1.05 }}
+        className="glass-card rounded-lg p-6"
       >
         {isLoading ? (
           <div className="animate-pulse">
@@ -35,11 +36,11 @@ const MetricCard: React.FC<MetricCardProps> = ({ title, value, change, icon, isL
         ) : (
           <div className="flex flex-col h-full">
             <div className="flex items-center justify-between mb-4">
-              <span className="text-gray-400 font-medium">{title}</span>
-              <span className="text-gray-500">{icon}</span>
+              <span className="text-gray-400 text-lg">{title}</span>
+              <span className="text-primary">{icon}</span>
             </div>
             <div className="flex flex-col">
-              <div className="text-2xl font-bold text-white mb-2">{value}</div>
+              <div className="text-3xl font-bold text-primary mb-2">{value}</div>
               <div className={`text-sm flex items-center ${
                 change >= 0 ? 'text-green-500' : 'text-red-500'
               }`}>
@@ -107,7 +108,7 @@ const MetricCard: React.FC<MetricCardProps> = ({ title, value, change, icon, isL
           transition={{ duration: 0.8, delay: 0.4 }}
           className="text-lg text-gray-400 max-w-2xl mx-auto"
         >
-          Real-time metrics and performance insights across the network
+          Real-time metrics and performance insights across major networks
         </motion.p>
       </motion.div>
 

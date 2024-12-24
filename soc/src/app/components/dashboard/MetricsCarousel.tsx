@@ -13,7 +13,7 @@ interface MetricsCarouselProps {
 }
 
 export const MetricsCarousel: React.FC<MetricsCarouselProps> = ({ data, isLoading }) => {
-  const [currentSlide, setCurrentSlide] = useState(0);
+    const [currentSlide, setCurrentSlide] = useState(0);
   const [direction, setDirection] = useState(0);
 
   const slides = [
@@ -65,33 +65,40 @@ export const MetricsCarousel: React.FC<MetricsCarouselProps> = ({ data, isLoadin
 
   return (
     <div className="w-full">
-      <h2 className="text-2xl font-bold mb-6">Network Metrics</h2>
+      <h2 className="text-3xl font-bold mb-6">
+        <span className="bg-clip-text text-transparent bg-gradient-to-r from-red-500 to-red-800">
+          Network Metrics
+        </span>
+      </h2>
       
-      <div className="relative h-[400px] w-full">
-        {/* Navigation Arrows */}
-        <button
-          className="absolute left-4 top-1/2 z-10 transform -translate-y-1/2
-                     w-12 h-12 rounded-full bg-black/50 hover:bg-black/70
-                     flex items-center justify-center transition-colors"
-          onClick={() => paginate(-1)}
-          aria-label="Previous slide"
-        >
-          <svg className="w-6 h-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-          </svg>
-        </button>
+      <div className="glass-card rounded-lg p-6">
+        <div className="relative h-[400px] w-full">
+          {/* Navigation Arrows */}
+          <button
+            className="absolute left-4 top-1/2 z-10 transform -translate-y-1/2
+                       w-12 h-12 rounded-full bg-black/50 hover:bg-black/70
+                       flex items-center justify-center transition-colors
+                       text-primary hover:text-red-400"
+            onClick={() => paginate(-1)}
+            aria-label="Previous slide"
+          >
+            <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+            </svg>
+          </button>
 
-        <button
-          className="absolute right-4 top-1/2 z-10 transform -translate-y-1/2
-                     w-12 h-12 rounded-full bg-black/50 hover:bg-black/70
-                     flex items-center justify-center transition-colors"
-          onClick={() => paginate(1)}
-          aria-label="Next slide"
-        >
-          <svg className="w-6 h-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-          </svg>
-        </button>
+          <button
+            className="absolute right-4 top-1/2 z-10 transform -translate-y-1/2
+                       w-12 h-12 rounded-full bg-black/50 hover:bg-black/70
+                       flex items-center justify-center transition-colors
+                       text-primary hover:text-red-400"
+            onClick={() => paginate(1)}
+            aria-label="Next slide"
+          >
+            <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+            </svg>
+          </button>
 
         {/* Chart Container */}
         <div className="relative h-full w-full">
@@ -131,6 +138,7 @@ export const MetricsCarousel: React.FC<MetricsCarouselProps> = ({ data, isLoadin
           ))}
         </div>
       </div>
+    </div>
     </div>
   );
 };
