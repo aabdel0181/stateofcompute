@@ -2,56 +2,52 @@
 
 import { motion } from 'framer-motion';
 import { Globe } from './Globe';
-import { PriceComparisonChart } from './charts/PriceComparison';
-import { NetworkHealth } from './charts/NetworkHealth';
-import { HistoricalPerformance } from './charts/HistoricalPerformance';
 import { MetricCounter } from './MetricCounter';
 import { ParticleBackground } from './ParticleBackground';
-import { SkeletonLoader } from './SkeletonLoader';
 import type { GPUMetrics } from '@/types/metrics';
 
 interface AnalyticsDashboardProps {
   data: GPUMetrics[];
 }
-
 export const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ data }) => {
     return (
-      <div className="relative min-h-screen bg-gray-900 text-white overflow-hidden">
-        <ParticleBackground /> {/* Ensure this is included and positioned correctly */}
+      <div className="relative min-h-screen bg-black"> {/* Changed to bg-black */}
+        <ParticleBackground />
         
-        <main className="relative z-10 container mx-auto px-4 py-8">
-          <section className="mb-12">
+        <main className="relative z-10">
+          <header className="pt-8 pb-16 px-4">
+            <h1 className="text-5xl font-bold text-center text-gradient">
+              The State of DePIN
+            </h1>
+          </header>
   
-          <h1 className="text-4xl font-bold mb-6 bg-gradient-to-r from-blue-500 to-purple-500 text-transparent bg-clip-text text-center">
-            GPU Network Analytics
-          </h1>
-          <div className="flex justify-center">
-            <Globe data={data} />
+          <div className="container mx-auto px-4">
+            <div className="relative h-[80vh] mb-12">
+              <div className="absolute inset-0">
+                <Globe data={data} />
+              </div>
+              
+              <div className="absolute top-4 left-4 right-4 grid grid-cols-1 md:grid-cols-3 gap-4">
+                <MetricCounter
+                  label="Total GPUs"
+                  value={data.reduce((acc, curr) => acc + curr.gpuCount, 0)}
+                  theme="glass"
+                />
+                <MetricCounter
+                  label="Active Users"
+                  value={new Set(data.map(d => d.userId)).size}
+                  theme="glass"
+                />
+                <MetricCounter
+                  label="Network Health"
+                  value={data.reduce((acc, curr) => acc + curr.networkHealth, 0) / data.length}
+                  suffix="%"
+                  theme="glass"
+                />
+              </div>
+            </div>
           </div>
-        </section>
-
-        <section className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
-          <MetricCounter
-            label="Total GPUs"
-            value={data.reduce((acc, curr) => acc + curr.gpuCount, 0)}
-          />
-          <MetricCounter
-            label="Active Users"
-            value={new Set(data.map(d => d.userId)).size}
-          />
-          <MetricCounter
-            label="Avg. Utilization"
-            value={data.reduce((acc, curr) => acc + curr.utilization, 0) / data.length}
-            suffix="%"
-          />
-        </section>
-
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-          <PriceComparisonChart data={data} />
-          <NetworkHealth data={data} />
-          <HistoricalPerformance data={data} />
-        </div>
-      </main>
-    </div>
-  );
-};
+        </main>
+      </div>
+    );
+  };
