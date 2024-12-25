@@ -1,79 +1,105 @@
 export const generateDummyData = (): GPUMetrics[] => {
+    const networks = [
+      { name: 'Ionet', weightage: 0.2 },
+      { name: 'Akash', weightage: 0.25 },
+      { name: 'Hyperbolic', weightage: 0.15 },
+      { name: 'Vast.ai', weightage: 0.15 },
+      { name: 'Aether', weightage: 0.1 },
+      { name: 'Spheron', weightage: 0.08 },
+      { name: 'Golem', weightage: 0.04 },
+      { name: 'Render', weightage: 0.03 }
+    ];
+  
+    const gpuModels = [
+      { model: 'RTX 4090', price: 2.5, weightage: 0.2 },
+      { model: 'RTX 4080', price: 1.8, weightage: 0.15 },
+      { model: 'RTX 3090', price: 1.2, weightage: 0.2 },
+      { model: 'RTX 3080', price: 0.9, weightage: 0.15 },
+      { model: 'A100', price: 3.5, weightage: 0.15 },
+      { model: 'H100', price: 4.5, weightage: 0.1 },
+      { model: 'A6000', price: 2.8, weightage: 0.05 }
+    ];
+  
     const locations = [
-      { city: "San Francisco", lat: 37.7749, lng: -122.4194 },
-      { city: "New York", lat: 40.7128, lng: -74.0060 },
-      { city: "London", lat: 51.5074, lng: -0.1278 },
-      { city: "Tokyo", lat: 35.6762, lng: 139.6503 },
-      { city: "Singapore", lat: 1.3521, lng: 103.8198 },
-      { city: "Seoul", lat: 37.5665, lng: 126.9780 },
-      { city: "Berlin", lat: 52.5200, lng: 13.4050 },
-      { city: "Toronto", lat: 43.6532, lng: -79.3832 },
-      { city: "Sydney", lat: -33.8688, lng: 151.2093 },
-      { city: "Dubai", lat: 25.2048, lng: 55.2708 },
-      { city: "Mumbai", lat: 19.0760, lng: 72.8777 },
-      { city: "São Paulo", lat: -23.5505, lng: -46.6333 },
-      { city: "Amsterdam", lat: 52.3676, lng: 4.9041 },
-      { city: "Paris", lat: 48.8566, lng: 2.3522 },
-      { city: "Stockholm", lat: 59.3293, lng: 18.0686 },
-      { city: "Hong Kong", lat: 22.3193, lng: 114.1694 },
-      { city: "Shanghai", lat: 31.2304, lng: 121.4737 },
-      { city: "Barcelona", lat: 41.3851, lng: 2.1734 },
-      { city: "Melbourne", lat: -37.8136, lng: 144.9631 },
-      { city: "Tel Aviv", lat: 32.0853, lng: 34.7818 },
+      { city: "San Francisco", lat: 37.7749, lng: -122.4194, region: "NA" },
+      { city: "New York", lat: 40.7128, lng: -74.0060, region: "NA" },
+      { city: "London", lat: 51.5074, lng: -0.1278, region: "EU" },
+      { city: "Frankfurt", lat: 50.1109, lng: 8.6821, region: "EU" },
+      { city: "Singapore", lat: 1.3521, lng: 103.8198, region: "APAC" },
+      { city: "Tokyo", lat: 35.6762, lng: 139.6503, region: "APAC" },
+      { city: "Sydney", lat: -33.8688, lng: 151.2093, region: "APAC" },
+      { city: "Mumbai", lat: 19.0760, lng: 72.8777, region: "APAC" },
+      { city: "São Paulo", lat: -23.5505, lng: -46.6333, region: "SA" },
+      { city: "Toronto", lat: 43.6532, lng: -79.3832, region: "NA" }
     ];
   
     // Generate 500 data points
     return Array.from({ length: 500 }, (_, index) => {
+      // Select network based on weightage
+      const networkRoll = Math.random();
+      let cumulativeWeight = 0;
+      const network = networks.find(n => {
+        cumulativeWeight += n.weightage;
+        return networkRoll <= cumulativeWeight;
+      })!.name;
+  
+      // Select GPU model based on weightage
+      const gpuRoll = Math.random();
+      cumulativeWeight = 0;
+      const gpu = gpuModels.find(g => {
+        cumulativeWeight += g.weightage;
+        return gpuRoll <= cumulativeWeight;
+      })!;
+  
       const location = locations[Math.floor(Math.random() * locations.length)];
       const latVariation = (Math.random() - 0.5) * 2;
       const lngVariation = (Math.random() - 0.5) * 2;
   
-      // Generate more varied status probabilities
+      // Generate more realistic status probabilities
       const statusRoll = Math.random();
       let status: 'active' | 'inactive';
       let networkHealth: number;
       let utilization: number;
   
-      if (statusRoll < 0.15) {
-        // 15% chance of being inactive
+      if (statusRoll < 0.12) {
+        // 12% chance of being inactive
         status = 'inactive';
-        networkHealth = 0;
+        networkHealth = Math.floor(Math.random() * 30); // 0-30%
         utilization = 0;
       } else {
         status = 'active';
         
-        // For active nodes, generate varied health and utilization
-        const healthRoll = Math.random();
-        if (healthRoll < 0.2) {
-          // 20% chance of poor health
-          networkHealth = Math.floor(Math.random() * 30 + 40); // 40-70%
-        } else {
-          networkHealth = Math.floor(Math.random() * 20 + 80); // 80-100%
-        }
+        // Network health based on network maturity
+        const networkMaturity = networks.find(n => n.name === network)!.weightage;
+        const baseHealth = 70 + (networkMaturity * 100);
+        networkHealth = Math.min(98, Math.floor(baseHealth + (Math.random() - 0.5) * 20));
   
-        const utilizationRoll = Math.random();
-        if (utilizationRoll < 0.3) {
-          // 30% chance of high utilization
-          utilization = Math.floor(Math.random() * 10 + 90); // 90-100%
-        } else {
-          utilization = Math.floor(Math.random() * 60 + 30); // 30-90%
-        }
+        // Utilization based on network popularity
+        const baseUtilization = 50 + (networkMaturity * 100);
+        utilization = Math.min(100, Math.floor(baseUtilization + (Math.random() - 0.5) * 40));
       }
   
-      const gpuCount = Math.floor(Math.pow(Math.random(), 2) * 50) + 1;
-      const basePrice = 0.5 + Math.random() * 1.5;
+      // GPU count based on provider size (exponential distribution)
+      const gpuCount = Math.floor(Math.pow(Math.random(), 2) * 100) + 1;
+  
+      // Price variation based on GPU model, location, and network
+      const regionMultiplier = location.region === 'NA' || location.region === 'EU' ? 1.1 : 0.9;
+      const networkMultiplier = 0.8 + (networks.find(n => n.name === network)!.weightage * 1.5);
+      const basePrice = gpu.price * regionMultiplier * networkMultiplier;
       const currentPrice = basePrice * (1 + (Math.random() - 0.5) * 0.2);
   
       return {
-        id: `node-${index}`,
-        userId: `user-${Math.floor(Math.random() * 50)}`,
+        id: `node-${network.toLowerCase()}-${index}`,
+        userId: `provider-${Math.floor(Math.random() * 100)}`,
+        network,
         location: {
           city: location.city,
+          region: location.region,
           latitude: location.lat + latVariation,
           longitude: location.lng + lngVariation,
         },
         gpuCount,
-        gpuType: ['RTX 4090', 'RTX 3090', 'RTX 3080', 'A100', 'H100'][Math.floor(Math.random() * 5)],
+        gpuType: gpu.model,
         utilization,
         networkHealth,
         pricing: {
@@ -89,5 +115,5 @@ export const generateDummyData = (): GPUMetrics[] => {
       };
     });
   };
-  // Example usage:
+    // Example usage:
   export const dummyData = generateDummyData();

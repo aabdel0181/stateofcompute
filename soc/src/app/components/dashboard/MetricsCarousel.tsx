@@ -3,6 +3,8 @@
 import { useState, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { UtilizationChart } from '../charts/UtilizationChart';
+import { PriceComparisonChart } from '../charts/PriceComparisonChart';
+
 import { ProviderComparisonChart } from '../charts/ProviderComparisonChart';
 import { GrowthChart } from '../charts/GrowthChart';
 import type { GPUMetrics } from '@/types/metrics';
@@ -18,22 +20,21 @@ export const MetricsCarousel: React.FC<MetricsCarouselProps> = ({ data, isLoadin
 
   const slides = [
     {
-      id: 'utilization',
-      title: 'GPU Utilization',
-      component: <UtilizationChart data={data} isLoading={isLoading} />
+      title: "Network Growth",
+      component: <GrowthChart data={data} isLoading={isLoading} />,
+      description: "GPU and provider growth over time"
     },
     {
-      id: 'comparison',
-      title: 'Provider Comparison',
-      component: <ProviderComparisonChart data={data} isLoading={isLoading} />
+      title: "Network Distribution",
+      component: <ProviderComparisonChart data={data} isLoading={isLoading} />,
+      description: "GPU distribution across providers"
     },
     {
-      id: 'growth',
-      title: 'Network Growth',
-      component: <GrowthChart data={data} isLoading={isLoading} />
+      title: "Price Analysis",
+      component: <PriceComparisonChart data={data} isLoading={isLoading} />,
+      description: "Cost comparison across networks"
     }
   ];
-
   const slideVariants = {
     enter: (direction: number) => ({
       x: direction > 0 ? 1000 : -1000,
@@ -65,11 +66,11 @@ export const MetricsCarousel: React.FC<MetricsCarouselProps> = ({ data, isLoadin
 
   return (
     <div className="w-full">
-      <h2 className="text-3xl font-bold mb-6">
+      {/* <h2 className="text-3xl font-bold mb-6">
         <span className="bg-clip-text text-transparent bg-gradient-to-r from-red-500 to-red-800">
           Network Metrics
         </span>
-      </h2>
+      </h2> */}
       
       <div className="glass-card rounded-lg p-6">
         <div className="relative h-[400px] w-full">
