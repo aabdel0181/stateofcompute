@@ -33,11 +33,11 @@ export const HomeView: React.FC<HomeViewProps> = ({ data }) => {
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8, delay: 0.2 }}
-        className="container mx-auto px-4 pt-20 pb-4 text-center"
+        className="container mx-auto px-4 pt-0 pb-4 text-center"
       >
         <h1 className="text-5xl font-bold mb-2">
           <span className="bg-clip-text text-transparent bg-gradient-to-r from-red-500 to-red-800">
-            The State of DePIN
+            The State of Compute
           </span>
         </h1>
         <motion.p
@@ -46,7 +46,7 @@ export const HomeView: React.FC<HomeViewProps> = ({ data }) => {
           transition={{ duration: 0.8, delay: 0.4 }}
           className="text-lg text-gray-400 max-w-2xl mx-auto"
         >
-          Real-time analytics of decentralized physical infrastructure networks
+          Real-time analytics of decentralized GPU networks
         </motion.p>
       </motion.div>
 
