@@ -6,7 +6,7 @@ import { MetricsCarousel } from './dashboard/MetricsCarousel';
 import { ProviderLeaderboard } from './dashboard/ProviderLeaderboard';
 import { DashboardHeader } from './dashboard/DashboardHeader';
 import { ParticleBackground } from './ParticleBackground';
-import type { GPUMetrics } from '@/types/metrics';
+import type { GPUMetrics } from '../types/metrics';
 
 interface DashboardViewProps {
   data: GPUMetrics[];

@@ -1,14 +1,17 @@
 'use client';
 
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
-import type { GPUMetrics } from '@/types/metrics';
+import type { GPUMetrics } from '../../types/metrics';
 
 interface PriceComparisonProps {
   data: GPUMetrics[];
+  isLoading: boolean;
 }
 
-export const PriceComparisonChart: React.FC<PriceComparisonProps> = ({ data }) => {
-  return (
+export const PriceComparisonChart: React.FC<PriceComparisonProps> = ({ data, isLoading }) => {
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }  return (
     <div className="p-6 rounded-lg bg-gray-800 border border-gray-700">
       <h3 className="text-xl mb-4">Price Comparison</h3>
       <div className="h-[300px]">

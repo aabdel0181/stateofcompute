@@ -13,7 +13,7 @@ import {
   Filler
 } from 'chart.js';
 import { motion } from 'framer-motion';
-import type { GPUMetrics } from '@/types/metrics';
+import type { GPUMetrics } from '../../types/metrics';
 
 ChartJS.register(
   CategoryScale,

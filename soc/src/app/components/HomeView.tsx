@@ -7,7 +7,7 @@ import { Globe } from './Globe';
 import { MetricCounter } from './MetricCounter';
 
 import { ParticleBackground } from './ParticleBackground';
-import type { GPUMetrics } from '@/types/metrics';
+import type { GPUMetrics } from '../types/metrics';
 
 interface HomeViewProps {
   data: GPUMetrics[];
@@ -54,7 +54,24 @@ export const HomeView: React.FC<HomeViewProps> = ({ data }) => {
       <div className="relative flex-1" style={{ height: 'calc(100vh - 200px)' }}>
         {/* Globe */}
         <div className="absolute inset-0 flex items-center justify-center">
-          <Globe data={data} />
+          <Globe
+            data={data}
+            globeImageUrl="https://unpkg.com/three-globe@2.37.5/example/img/earth-dark.jpg"
+            pointsData={data.map(metric => ({
+              lat: metric.location.latitude,
+              lng: metric.location.longitude,
+              size: 0.5,
+              color: '#00cc00' // Default color, you can use a function to determine this
+            }))}
+            pointAltitude={0.01}
+            pointColor="color"
+            pointRadius={0.5}
+            atmosphereColor="#cc0000"
+            atmosphereAltitude={0.15}
+            width={900}
+            height={900}
+            enablePointerInteraction={false}
+          />
         </div>
         
         {/* Metrics Overlay */}
@@ -116,3 +133,4 @@ export const HomeView: React.FC<HomeViewProps> = ({ data }) => {
       </div>
     </div>
   );
+};

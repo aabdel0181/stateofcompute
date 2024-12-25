@@ -1,6 +1,7 @@
 export interface GPUMetrics {
   id: string;
   userId: string;
+  network: string; // Ensure this line is present
   location: {
     city: string;
     latitude: number;

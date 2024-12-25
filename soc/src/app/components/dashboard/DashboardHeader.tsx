@@ -3,7 +3,7 @@
 import { motion } from 'framer-motion';
 import { useState, useEffect } from 'react';
 import { FiCpu, FiUsers, FiActivity, FiDollarSign } from 'react-icons/fi';
-import type { GPUMetrics } from '@/types/metrics';
+import type { GPUMetrics } from '../../types/metrics';
 
 interface DashboardHeaderProps {
   data: GPUMetrics[];
@@ -58,11 +58,11 @@ const MetricCard: React.FC<MetricCardProps> = ({ title, value, change, icon, isL
 
   export const DashboardHeader: React.FC<DashboardHeaderProps> = ({ data, isLoading }) => {
     const metrics = {
-      totalGPUs: data.reduce((acc, curr) => acc + curr.gpuCount, 0),
-      totalProviders: new Set(data.map(d => d.userId)).size,
-      avgUtilization: data.reduce((acc, curr) => acc + curr.utilization, 0) / data.length,
-      marketCap: data.reduce((acc, curr) => acc + (curr.gpuCount * curr.currentPrice), 0),
-    };
+        totalGPUs: data.reduce((acc, curr) => acc + curr.gpuCount, 0),
+        totalProviders: new Set(data.map(d => d.userId)).size,
+        avgUtilization: data.reduce((acc, curr) => acc + curr.utilization, 0) / data.length,
+        marketCap: data.reduce((acc, curr) => acc + (curr.gpuCount * parseFloat(curr.pricing.currentPrice)), 0),
+      };
   
     const changes = {
       gpus: 12.5,        // Weekly growth in total GPUs

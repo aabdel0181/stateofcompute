@@ -1,7 +1,7 @@
 'use client';
 
 import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
-import type { GPUMetrics } from '@/types/metrics';
+import type { GPUMetrics } from '../../types/metrics';
 
 interface HistoricalPerformanceProps {
   data: GPUMetrics[];

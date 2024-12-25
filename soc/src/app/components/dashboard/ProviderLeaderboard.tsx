@@ -3,14 +3,14 @@
 import { useState, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FiArrowUp, FiArrowDown, FiSearch, FiFilter } from 'react-icons/fi';
-import type { GPUMetrics } from '@/types/metrics';
+import type { GPUMetrics } from '../../types/metrics';
 
 interface ProviderLeaderboardProps {
   data: GPUMetrics[];
   isLoading: boolean;
 }
 
-type SortField = 'utilization' | 'networkHealth' | 'gpuCount' | 'currentPrice';
+type SortField = 'userId' | 'network' | 'gpuCount' | 'utilization' | 'networkHealth' | 'currentPrice' | 'revenue' | 'status';
 type SortDirection = 'asc' | 'desc';
 
 interface ProviderData {
@@ -27,15 +27,15 @@ export const ProviderLeaderboard: React.FC<ProviderLeaderboardProps> = ({ data, 
   const [sortDirection, setSortDirection] = useState<SortDirection>('desc');
   const [searchTerm, setSearchTerm] = useState('');
   const [statusFilter, setStatusFilter] = useState<'all' | 'active' | 'inactive'>('all');
-  const columns = [
-    { key: 'provider', label: 'Provider' },
-    { key: 'network', label: 'Network' },
+  const columns: { key: SortField; label: string }[] = [
+    { key: 'userId', label: 'Provider ID' }, // Adjust if needed
+    { key: 'network', label: 'Network' },    // Adjust if needed
     { key: 'gpuCount', label: 'GPUs' },
     { key: 'utilization', label: 'Utilization' },
-    { key: 'reliability', label: 'Reliability' },
+    { key: 'networkHealth', label: 'Reliability' },
     { key: 'currentPrice', label: 'Price/Hour' },
-    { key: 'totalRevenue', label: 'Revenue (30d)' },
-    { key: 'status', label: 'Status' }
+    { key: 'revenue', label: 'Revenue (30d)' },
+    { key: 'status', label: 'Status' }        // Adjust if needed
   ];
 
   // Process and aggregate data by provider (userId)
@@ -108,7 +108,7 @@ export const ProviderLeaderboard: React.FC<ProviderLeaderboardProps> = ({ data, 
         return value;
     }
   };
-  const handleSort = (key: string) => {
+  const handleSort = (key: SortField) => {
     if (sortField === key) {
       setSortDirection(prev => prev === 'asc' ? 'desc' : 'asc');
     } else {

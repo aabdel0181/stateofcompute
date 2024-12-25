@@ -7,7 +7,7 @@ import { PriceComparisonChart } from '../charts/PriceComparisonChart';
 
 import { ProviderComparisonChart } from '../charts/ProviderComparisonChart';
 import { GrowthChart } from '../charts/GrowthChart';
-import type { GPUMetrics } from '@/types/metrics';
+import type { GPUMetrics } from '../../types/metrics';
 
 interface MetricsCarouselProps {
   data: GPUMetrics[];

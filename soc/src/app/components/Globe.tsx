@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useMemo } from 'react';
 import dynamic from 'next/dynamic';
-import type { GPUMetrics } from '@/types/metrics';
+import type { GPUMetrics } from '../types/metrics';
 
 const GlobeGL = dynamic(() => import('react-globe.gl'), {
   ssr: false,
@@ -12,11 +12,21 @@ const GlobeGL = dynamic(() => import('react-globe.gl'), {
     </div>
   ),
 });
-
 interface GlobeProps {
   data: GPUMetrics[];
+  globeImageUrl: string;
+  pointsData: { lat: number; lng: number; size: number; color: string; }[];
+  pointAltitude: number;
+  pointColor: string;
+  pointRadius: number;
+  atmosphereColor: string;
+  atmosphereAltitude: number;
+  width: number;
+  height: number;
+  enablePointerInteraction: boolean;
+  center?: boolean;
+  globeRadius?: number; // Add this line
 }
-
 export const Globe: React.FC<GlobeProps> = ({ data }) => {
   const globeRef = useRef<any>(null);
 
@@ -97,9 +107,7 @@ export const Globe: React.FC<GlobeProps> = ({ data }) => {
         backgroundColor="rgba(0,0,0,0)"
         width={900}
         height={900}
-        globeRadius={300}
         enablePointerInteraction={false}
-        center={true}
       />
     </div>
   );

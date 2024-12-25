@@ -8,6 +8,7 @@ interface MetricCounterProps {
   value?: number;
   loading?: boolean;
   suffix?: string;
+  theme?: string;
 }
 export const MetricCounter: React.FC<MetricCounterProps> = ({
     label,
@@ -34,8 +35,8 @@ export const MetricCounter: React.FC<MetricCounterProps> = ({
     return (
       <motion.div
         whileHover={{ scale: 1.05 }}
-        className="glass-card rounded-lg p-6"
-      >
+        className={`glass-card rounded-lg p-6 ${theme}`} // Use the theme prop
+        >
         <h3 className="text-lg text-gray-400 mb-2">{label}</h3>
         <div className="text-3xl font-bold text-primary">
           {Math.round(displayValue)}

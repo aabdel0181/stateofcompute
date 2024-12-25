@@ -3,7 +3,7 @@
 import { Pie } from 'react-chartjs-2';
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
 import { motion } from 'framer-motion';
-import type { GPUMetrics } from '@/types/metrics';
+import type { GPUMetrics } from '../../types/metrics';
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
@@ -84,3 +84,4 @@ export const UtilizationChart: React.FC<UtilizationChartProps> = ({ data, isLoad
       </div>
     </motion.div>
   );
+};

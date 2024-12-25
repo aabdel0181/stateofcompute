@@ -1,3 +1,5 @@
+import type { GPUMetrics } from '../types/metrics';
+
 export const generateDummyData = (): GPUMetrics[] => {
     const networks = [
       { name: 'Ionet', weightage: 0.2 },
