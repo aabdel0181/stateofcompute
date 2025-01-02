@@ -24,7 +24,7 @@ def fetch_akash():
         data = response.json()
 
         # navigate the JSON
-        now_stats       = data.get("now", {})
+        now_stats = data.get("now", {})
         network_stats = data.get("networkCapacity", {})
         chain_stats = data.get("chainStats", {})
 
@@ -43,14 +43,36 @@ def fetch_akash():
         df = pd.DataFrame([parsed_data])
         print("Akash cleaned")
         print(df.head())
-
         return df
-
     except (requests.RequestException, ValueError) as e:
         print(f"Error fetching Akash data: {e}")
         return pd.DataFrame()
 
+def fetch_aethir():
+    """
+    Fetch data from the Aethir API.
+    """
+    aethir_GPUi_endpoint = "https://aethir-server-stagging.up.railway.app/protocol/gpu-info-list"
+    
+    try:
+            response = requests.get(aethir_GPUi_endpoint, timeout=10)
+            response.raise_for_status()
+            
+            data = response.json()
+            df = pd.DataFrame(data)
+            
+            # Aggregate the number of GPUs.
+            total_gpu_count = df["gpuCards"].sum()
+            
 
+            df["totalGPUCount"] = total_gpu_count
+            print(f"Total gpu count", total_gpu_count)
+            print(f"Aethir cleaned: ", df.head())
+            return df, total_gpu_count
+    
+    except (requests.RequestException, ValueError) as e:
+        print(f"Error fetching Aethir data: {e}")
+        return pd.DataFrame(), 0
 
 def main():
     """
@@ -61,29 +83,7 @@ def main():
     
     # Fetch Aethir API
     aethir_df = fetch_aethir()
-    
-    # Example of combining data
-    # If both DataFrames have similar columns or keys, you can merge or concatenate them.
-    # Below is a simple vertical concatenation (assuming both have the same columns).
-    combined_df = pd.concat([akash_df, aethir_df], ignore_index=True)
-    
-    # Example: Basic aggregation or manipulation (this is just a placeholder)
-    # If there's a numeric column, e.g., 'price' or 'value', you can do:
-    # average_value = combined_df['value'].mean()
-    # print(f"Average value: {average_value}")
-    
-    # Provide data for an endpoint
-    # - Typically, you would store this combined data in a database or
-    #   a file that your web server or API layer can access.
-    # - For demonstration, we’ll just print the DataFrame shape.
-    print("Combined DataFrame shape:", combined_df.shape)
-    
-    # If you need to persist to a CSV or database:
-    # combined_df.to_csv("akash_aethir_data.csv", index=False)
-    # Or use a database library to insert into a table/collection
 
 
-# Best practice in Python is to check __name__ == '__main__'
-# not __name__ == 'main'
 if __name__ == '__main__':
     main()
